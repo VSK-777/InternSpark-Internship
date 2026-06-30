@@ -23,8 +23,13 @@ Instead of manually running SQL scripts, this application automatically validate
 ## 📂 Folder Structure
 ```text
 TASK-2/
-├── database-migration/ # Spring Boot Flyway Application
-└── README.md           # This documentation
+├── database-migration/          # Spring Boot Application Root
+│   ├── src/main/java/...        # Java Source Code (Controllers, Services, Repositories)
+│   ├── src/main/resources/      # Application Configuration (application.yaml)
+│   │   └── db/migration/        # Flyway SQL Migration Scripts (V1, V2, V3)
+│   ├── pom.xml                  # Maven Dependencies Configuration
+│   └── HELP.md                  # Project Command References
+└── README.md                    # This documentation
 ```
 
 ## 🚀 Installation & Running
@@ -52,8 +57,10 @@ cd database-migration
 ```
 
 ## 🔮 Future Improvements
-- Expand schema with foreign key relationships between Users and Tasks.
-- Implement Flyway callbacks for advanced database orchestration.
+- Implement foreign key relationships between Users and Tasks to ensure referential integrity.
+- Add advanced Flyway callbacks (e.g., `afterMigrate.sql`) for complex database orchestration and seeding conditionally based on environment.
+- Introduce integration testing with Testcontainers to validate migrations against a real MySQL Docker container during CI/CD pipelines.
+- Add Spring Security to protect REST endpoints interacting with the migrated tables.
 
 ## 🎓 Learning Outcomes
 - Mastered database version control using Flyway.
