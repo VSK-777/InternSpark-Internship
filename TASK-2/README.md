@@ -56,12 +56,6 @@ cd database-migration
 ./mvnw clean test
 ```
 
-## 🔮 Future Improvements
-- Implement foreign key relationships between Users and Tasks to ensure referential integrity.
-- Add advanced Flyway callbacks (e.g., `afterMigrate.sql`) for complex database orchestration and seeding conditionally based on environment.
-- Introduce integration testing with Testcontainers to validate migrations against a real MySQL Docker container during CI/CD pipelines.
-- Add Spring Security to protect REST endpoints interacting with the migrated tables.
-
 ## 🎓 Learning Outcomes
 - Mastered database version control using Flyway.
 - Learned to automatically apply schema and data scripts on application startup.
