@@ -1,7 +1,7 @@
 # 🗄️ TASK-2: Database Migration using Flyway
 
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen?style=for-the-badge)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.0-brightgreen?style=for-the-badge)
 ![Flyway](https://img.shields.io/badge/Flyway-Database_Migration-red?style=for-the-badge)
 
 ## 📖 Project Overview
@@ -18,7 +18,7 @@ The objective of this project is to demonstrate database version control using F
 - **Version Control:** Flyway tracks which scripts have been executed, preventing duplicate executions.
 
 ## 🛠️ Technology Stack
-- **Backend:** Java 21, Spring Boot 3.x
+- **Backend:** Java 21, Spring Boot 4.1.0
 - **Database:** MySQL
 - **Migration Tool:** Flyway
 - **Dependencies:** Spring Data JPA, Lombok, Spring Web
