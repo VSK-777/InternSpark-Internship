@@ -43,6 +43,7 @@ I am an aspiring software developer with a strong passion for building scalable 
 | Task | Project Name | Description | Technologies | Status | Source Code | Live Demo |
 | :---: | :--- | :--- | :--- | :---: | :---: | :---: |
 | **Task 1** | [Employee CRUD Application](./TASK-1) | A full-stack employee directory management system with a modern Glassmorphism UI. | React, Spring Boot, MySQL | ✅ Completed | [View](./TASK-1) | [Live Demo](https://intern-spark-internship.vercel.app/) |
+| **Task 2** | [Database Migration using Flyway](./TASK-2) | Automated database schema versioning and data seeding using Flyway. | Java, Spring Boot, Flyway, MySQL | ✅ Completed | [View](./TASK-2) | N/A (Backend Tool) |
 
 ## 📂 Repository Structure
 
@@ -52,6 +53,9 @@ InternSpark-Internship/
 │   ├── 📁 frontend/            # React.js & Vite Client
 │   ├── 📁 backend/             # Spring Boot REST API
 │   └── 📄 README.md            # Task 1 Documentation
+├── 📁 TASK-2/                  # Database Migration using Flyway
+│   ├── 📁 database-migration/  # Spring Boot Flyway App
+│   └── 📄 README.md            # Task 2 Documentation
 ├── 📄 LICENSE                  # MIT License
 └── 📄 README.md                # Repository Root Documentation
 ```
