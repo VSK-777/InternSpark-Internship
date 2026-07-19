@@ -24,9 +24,12 @@ flowchart LR
 ```
 
 ## 🛠️ Technology Stack
-- **Frontend:** React, Vite, Lucide Icons, Pure CSS (Glassmorphism)
-- **Backend:** Java 21, Spring Boot 4.1.0, Spring Data JPA, Hibernate
-- **Database:** MySQL 9.x
+
+| Category | Technology |
+|---|---|
+| **Frontend** | React 19, Vite 8, Lucide Icons, CSS (Glassmorphism) |
+| **Backend** | Java 21, Spring Boot 4.1.0, Spring Data JPA, Hibernate |
+| **Database** | MySQL 9.x |
 
 ## 📂 Folder Structure
 ```text

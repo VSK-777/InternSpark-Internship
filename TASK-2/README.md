@@ -18,10 +18,13 @@ The objective of this project is to demonstrate database version control using F
 - **Version Control:** Flyway tracks which scripts have been executed, preventing duplicate executions.
 
 ## 🛠️ Technology Stack
-- **Backend:** Java 21, Spring Boot 4.1.0
-- **Database:** MySQL
-- **Migration Tool:** Flyway
-- **Dependencies:** Spring Data JPA, Lombok, Spring Web
+
+| Category | Technology |
+|---|---|
+| **Backend** | Java 21, Spring Boot 4.1.0 |
+| **Database** | MySQL |
+| **Migration Tool** | Flyway |
+| **Dependencies** | Spring Data JPA, Lombok, Spring Web |
 
 ## 📜 Migration Scripts
 
