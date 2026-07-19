@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: ai-chatbot-backend
+    env: docker
+    rootDir: TASK-4/backend
+    dockerfilePath: Dockerfile
+    plan: free
+    region: ohio
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false

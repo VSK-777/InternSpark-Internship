@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +40,12 @@ public class MessageService {
 
     @Transactional
     public MessageResponse sendMessage(Long userId, MessageRequest request) {
+        PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+        String safeContent = policy.sanitize(request.getContent());
+
         Conversation conversation;
         if (request.getConversationId() == null) {
-            String title = request.getContent().length() > 30 ? request.getContent().substring(0, 30) + "..." : request.getContent();
+            String title = safeContent.length() > 30 ? safeContent.substring(0, 30) + "..." : safeContent;
             conversation = conversationRepository.findById(conversationService.createConversation(userId, title).getId()).get();
         } else {
             conversation = conversationRepository.findById(request.getConversationId())
@@ -54,7 +59,7 @@ public class MessageService {
         Message userMessage = Message.builder()
                 .conversation(conversation)
                 .role("USER")
-                .content(request.getContent())
+                .content(safeContent)
                 .build();
         messageRepository.save(userMessage);
 

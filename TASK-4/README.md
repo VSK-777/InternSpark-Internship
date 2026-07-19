@@ -2,31 +2,39 @@
 
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
 ![Full Stack](https://img.shields.io/badge/Stack-Full_Stack-blue?style=for-the-badge)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen?style=for-the-badge)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.x-brightgreen?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge)
+![Java](https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge)
+![Groq API](https://img.shields.io/badge/AI-Groq_API-f55036?style=for-the-badge)
 
 ## 📖 Project Overview
-The **AI Chatbot Application** is a complete, production-ready full-stack web application designed to provide a ChatGPT-like experience. It features a beautiful modern frontend, a secure Spring Boot backend, and in-memory database management for seamless conversation tracking.
+The **AI Chatbot Application** is a complete, production-ready full-stack web application designed to provide a ChatGPT-like experience. It features a beautiful modern frontend, a secure Spring Boot backend, and a robust Neon PostgreSQL database, powered by the Groq API (Llama 3.1 8b Instant) for lightning-fast AI responses.
 
 ## ✨ Features
-- **Modern UI/UX:** A stunning, responsive interface built with Tailwind CSS and shadcn/ui.
-- **Secure Backend:** Spring Boot API with JWT Authentication and Spring Security.
-- **Chat History:** Persistent chat history managed via an H2 in-memory database (automatically resets on restart).
+- **Modern UI/UX:** A stunning, responsive interface built with Tailwind CSS, Recharts, and shadcn/ui.
+- **Secure Backend:** Spring Boot 4.1.x API with JWT Authentication, Bucket4j rate limiting, Caffeine Cache, and OWASP HTML Sanitizer.
+- **Real AI Integration:** Intelligent chat processing using Spring AI and the Groq API.
+- **Robust Database:** Persistent chat history managed via Neon PostgreSQL and Flyway for seamless migrations.
 - **Clean Architecture:** Strictly adheres to SOLID principles and REST API best practices.
-- **Real-Time Interaction:** Smooth, ChatGPT-like conversation flow.
 
 ## 🏗️ System Architecture
 
 ```mermaid
 flowchart LR
-    A["React Frontend (Port 5173)"] <-->|"JSON over HTTP (Axios)"| B["Spring Boot REST API"]
-    B <-->|"JPA / Hibernate"| C[("H2 In-Memory DB")]
+    A["React 19 Frontend (Vercel)"] <-->|"JSON over HTTP"| B["Spring Boot 4.1.x API (Render)"]
+    B <-->|"JPA / Hibernate"| C[("Neon PostgreSQL")]
+    B <-->|"Spring AI"| D(("Groq API (Llama 3.1)"))
 ```
 
 ## 🛠️ Technology Stack
-- **Frontend:** React 19, Vite, TypeScript, Tailwind CSS, shadcn/ui, Axios, React Router.
-- **Backend:** Java 21, Spring Boot 3.x, Spring Security, JWT, Spring Data JPA.
-- **Database:** H2 Database (In-Memory).
+| Category | Technology |
+|---|---|
+| **Frontend** | React 19, Vite 8, Tailwind CSS, Recharts, React Router DOM 7 |
+| **Backend** | Java 25, Spring Boot 4.1.x, Spring Security, Spring AI, Spring Data JPA |
+| **Database** | Neon PostgreSQL, Flyway |
+| **AI Integration** | Groq API (Llama 3.1 8b Instant) |
+| **Security** | JWT, Bucket4j, Caffeine Cache, OWASP HTML Sanitizer |
+| **Deployment** | Vercel (Frontend), Render (Backend), Docker |
 
 ## 📂 Folder Structure
 ```text
@@ -44,7 +52,7 @@ Navigate to the `backend` folder and run the Spring Boot application:
 cd backend
 mvn clean spring-boot:run
 ```
-*The backend will start on `http://localhost:8080`. The database is entirely in-memory, so no external DB setup is required!*
+*The backend runs on `http://localhost:8080`. Ensure you have configured your Neon PostgreSQL and Groq API credentials in `application.yml`.*
 
 ### 2. Running the Frontend
 Navigate to the `frontend` folder, install dependencies, and start the development server:
@@ -56,13 +64,13 @@ npm run dev
 *The frontend will start on `http://localhost:5173`.*
 
 ## 🔮 Future Improvements
-- Integrate a live LLM API (like OpenAI or Gemini) for real AI responses.
-- Transition to a persistent PostgreSQL database for long-term chat history storage.
 - Add OAuth2 Social Login (Google, GitHub).
+- Implement WebSockets for real-time streaming of AI responses.
 
 ## 🎓 Learning Outcomes
-- Mastered advanced React 19 patterns and modern UI components with shadcn/ui.
-- Implemented robust stateless JWT authentication in Spring Boot.
+- Mastered advanced React 19 and React Router DOM 7 patterns.
+- Integrated cutting-edge LLMs via Spring AI and the Groq API.
+- Implemented robust stateless JWT authentication and Bucket4j rate limiting in Spring Boot 4.1.x.
 - Followed Clean Architecture for highly maintainable and scalable code.
 
 ---

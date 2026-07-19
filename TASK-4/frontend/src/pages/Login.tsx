@@ -52,7 +52,6 @@ export default function Login() {
         </CardContent>
         <CardFooter className="flex flex-col gap-2 text-center text-sm">
           <Link to="/register" className="text-primary hover:underline">Don't have an account? Sign up</Link>
-          <div className="text-muted-foreground hover:underline cursor-pointer">Forgot password?</div>
         </CardFooter>
       </Card>
     </div>
