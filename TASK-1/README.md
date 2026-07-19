@@ -85,3 +85,7 @@ The frontend communicates with the backend via a dedicated `api.js` service, uti
 ---
 **Author:** VAJJHA SAI KRISHNA
 
+## Deployment Status
+
+- ✅ **TASK-1 Updated Successfully** 🚀
+

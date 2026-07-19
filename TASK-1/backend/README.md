@@ -53,3 +53,8 @@ Run the application using the Maven wrapper:
 - Implement DTO mapping libraries like MapStruct to reduce boilerplate code.
 - Add Spring Security for token-based API authentication.
 - Implement comprehensive Swagger/OpenAPI documentation.
+
+## Deployment Status
+
+- ✅ **TASK-1 Updated Successfully** 🚀
+
