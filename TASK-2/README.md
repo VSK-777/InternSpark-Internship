@@ -119,3 +119,7 @@ This project was developed as part of the InternSpark Java Internship Program fo
 ---
 **Author:** VAJJHA SAI KRISHNA
 
+## Deployment Status
+
+- ✅ **TASK-2 Updated Successfully** 🚀
+
