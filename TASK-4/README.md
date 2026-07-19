@@ -1,27 +1,27 @@
-# 🤖 TASK-4: AI Chatbot Application
+# 🤖 Spark AI: Enterprise AI Chatbot Platform
 
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
 ![Full Stack](https://img.shields.io/badge/Stack-Full_Stack-blue?style=for-the-badge)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.x-brightgreen?style=for-the-badge)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3.4-brightgreen?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge)
-![Java](https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge)
 ![Groq API](https://img.shields.io/badge/AI-Groq_API-f55036?style=for-the-badge)
 
 ## 📖 Project Overview
-The **AI Chatbot Application** is a complete, production-ready full-stack web application designed to provide a ChatGPT-like experience. It features a beautiful modern frontend, a secure Spring Boot backend, and a robust Neon PostgreSQL database, powered by the Groq API (Llama 3.1 8b Instant) for lightning-fast AI responses.
+**Spark AI** (TASK-4) is a production-ready, highly polished full-stack web application that delivers a premium ChatGPT-like experience. Built with a stunning dark-mode-first React frontend and a secure Spring Boot 3.3.4 backend, the application connects to the ultra-fast Groq API (Llama 3.1) to generate intelligent responses with minimal latency.
 
-## ✨ Features
-- **Modern UI/UX:** A stunning, responsive interface built with Tailwind CSS, Recharts, and shadcn/ui.
-- **Secure Backend:** Spring Boot 4.1.x API with JWT Authentication, Bucket4j rate limiting, Caffeine Cache, and OWASP HTML Sanitizer.
-- **Real AI Integration:** Intelligent chat processing using Spring AI and the Groq API.
-- **Robust Database:** Persistent chat history managed via Neon PostgreSQL and Flyway for seamless migrations.
-- **Clean Architecture:** Strictly adheres to SOLID principles and REST API best practices.
+## ✨ Premium Features
+- **Enterprise UI/UX:** A stunning, fully responsive dark theme built with Tailwind CSS, Framer Motion, and shadcn/ui. Features glassmorphism, micro-animations, and perfect typography.
+- **Robust Security:** Spring Boot API guarded by JWT Authentication, CORS protection, rate limiting, and global exception handling (no stack traces leak).
+- **Intelligent AI Integration:** Powered by the Groq API (Llama 3.1 8B Instant) and integrated via Spring AI.
+- **Reliable Data Persistence:** Neon Serverless PostgreSQL with Flyway database migrations for robust schema management.
+- **Production Ready:** Fully configured for deployment on Render (Backend) and Vercel (Frontend).
 
 ## 🏗️ System Architecture
 
 ```mermaid
 flowchart LR
-    A["React 19 Frontend (Vercel)"] <-->|"JSON over HTTP"| B["Spring Boot 4.1.x API (Render)"]
+    A["React 19 Frontend (Vercel)"] <-->|"REST API / JSON"| B["Spring Boot 3.3.4 API (Render)"]
     B <-->|"JPA / Hibernate"| C[("Neon PostgreSQL")]
     B <-->|"Spring AI"| D(("Groq API (Llama 3.1)"))
 ```
@@ -29,53 +29,55 @@ flowchart LR
 ## 🛠️ Technology Stack
 | Category | Technology |
 |---|---|
-| **Frontend** | React 19, Vite 8, Tailwind CSS, Recharts, React Router DOM 7 |
-| **Backend** | Java 25, Spring Boot 4.1.x, Spring Security, Spring AI, Spring Data JPA |
+| **Frontend** | React 19, Vite, Tailwind CSS, Framer Motion, React Router DOM, TanStack Query |
+| **Backend** | Java 21, Spring Boot 3.3.4, Spring Security, Spring AI, Spring Data JPA |
 | **Database** | Neon PostgreSQL, Flyway |
-| **AI Integration** | Groq API (Llama 3.1 8b Instant) |
-| **Security** | JWT, Bucket4j, Caffeine Cache, OWASP HTML Sanitizer |
+| **AI Integration** | Groq API (Llama 3.1 8B Instant) |
+| **Security** | JWT Auth, CORS Config, Global Exception Handling |
 | **Deployment** | Vercel (Frontend), Render (Backend), Docker |
 
-## 📂 Folder Structure
-```text
-TASK-4/
-├── backend/            # Spring Boot Server (API & Security)
-├── frontend/           # React Client Application (UI/UX)
-└── README.md           # This documentation
-```
+## 🚀 Local Development Setup
 
-## 🚀 Installation & Running
+### 1. Backend Configuration
+Navigate to the `backend` directory. Configure the following environment variables (or add them to `application.yml` / `application-prod.yml`):
+- `DATABASE_URL`: Your Neon PostgreSQL JDBC URL
+- `DATABASE_USERNAME` / `DATABASE_PASSWORD`: DB Credentials
+- `GROQ_API_KEY`: Your Groq API key
+- `JWT_SECRET`: A secure random string for signing tokens
+- `FRONTEND_URL`: `http://localhost:5173` (for CORS)
 
-### 1. Running the Backend
-Navigate to the `backend` folder and run the Spring Boot application:
+Run the backend:
 ```bash
 cd backend
 mvn clean spring-boot:run
 ```
-*The backend runs on `http://localhost:8080`. Ensure you have configured your Neon PostgreSQL and Groq API credentials in `application.yml`.*
 
-### 2. Running the Frontend
-Navigate to the `frontend` folder, install dependencies, and start the development server:
+### 2. Frontend Configuration
+Navigate to the `frontend` directory. Create a `.env` file with:
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+Install dependencies and start the dev server:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*The frontend will start on `http://localhost:5173`.*
 
-## 🔮 Future Improvements
-- Add OAuth2 Social Login (Google, GitHub).
-- Implement WebSockets for real-time streaming of AI responses.
+## 🌍 Production Deployment Details
+- **Backend (Render)**: The backend is containerized/built via Maven and deployed as a Web Service. Health checks are exposed at `/actuator/health` and bypassed by Spring Security.
+- **Frontend (Vercel)**: Deployed with Vite build settings. Environment variables are set in the Vercel dashboard.
+- **Database (Neon)**: Flyway automatically handles schema generation and migrations on startup.
 
 ## 🎓 Learning Outcomes
-- Mastered advanced React 19 and React Router DOM 7 patterns.
-- Integrated cutting-edge LLMs via Spring AI and the Groq API.
-- Implemented robust stateless JWT authentication and Bucket4j rate limiting in Spring Boot 4.1.x.
-- Followed Clean Architecture for highly maintainable and scalable code.
+- Mastered building premium, animation-rich React user interfaces.
+- Implemented robust Spring Boot architectures with strict security and exception boundaries.
+- Seamlessly integrated third-party AI APIs (Groq) via Spring AI standard interfaces.
+- Deployed a complex, multi-service application to the cloud with proper CORS and environment configuration.
 
 ---
 **Author:** VAJJHA SAI KRISHNA
 
 ## Deployment Status
-
-- ✅ **TASK-4 Updated Successfully** 🚀
+✅ **Spark AI - Production Release Completed** 🚀

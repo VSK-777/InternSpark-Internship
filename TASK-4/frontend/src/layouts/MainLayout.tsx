@@ -1,12 +1,15 @@
-import { Outlet, Navigate, Link, useNavigate } from 'react-router-dom'
+import { Outlet, Navigate, Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
-import { MessageSquare, Settings, User as UserIcon, LogOut } from 'lucide-react'
+import { MessageSquare, Settings, User as UserIcon, LogOut, Plus, PanelLeft, Bot } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../services/api'
+import { useState } from 'react'
 
 export default function MainLayout() {
   const { token, logout, user } = useAuthStore()
   const navigate = useNavigate()
+  const location = useLocation()
+  const [isSidebarOpen, setSidebarOpen] = useState(false)
 
   const { data: conversations } = useQuery({
     queryKey: ['conversations'],
@@ -27,43 +30,85 @@ export default function MainLayout() {
   }
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
-      <aside className="w-64 bg-card border-r flex flex-col hidden md:flex">
-        <div className="p-4 font-bold text-xl flex items-center gap-2">
-          <MessageSquare className="text-primary" />
-          <span>AI Chatbot</span>
+    <div className="flex h-[100dvh] bg-background text-foreground overflow-hidden">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`fixed md:static inset-y-0 left-0 z-50 w-72 bg-card border-r border-border/50 flex flex-col transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+        <div className="p-5 font-semibold text-lg flex items-center justify-between border-b border-border/50">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="bg-primary/10 p-2 rounded-xl">
+              <Bot className="text-primary" size={24} />
+            </div>
+            <span className="tracking-tight text-foreground font-bold">Spark AI</span>
+          </Link>
+          <button className="md:hidden text-muted-foreground" onClick={() => setSidebarOpen(false)}>
+            <PanelLeft size={20} />
+          </button>
         </div>
+        
         <div className="p-4">
-          <Link to="/" className="w-full">
-            <button className="w-full bg-primary text-primary-foreground rounded-md py-2 px-4 font-medium flex justify-center items-center gap-2 hover:bg-primary/90 transition">
-              + New Chat
+          <Link to="/">
+            <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl py-3 px-4 font-medium flex justify-between items-center transition-all shadow-sm shadow-primary/20 hover:shadow-md hover:shadow-primary/40 active:scale-[0.98]">
+              <span>New Chat</span>
+              <Plus size={18} />
             </button>
           </Link>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-1">
-           {conversations?.map((conv: any) => (
-             <Link key={conv.id} to={`/chat/${conv.id}`} className="block p-2 rounded-md hover:bg-accent text-sm truncate">
-               {conv.title}
-             </Link>
-           ))}
+        
+        <div className="flex-1 overflow-y-auto px-3 space-y-1 scrollbar-hide py-2">
+           <div className="px-3 pb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Recent</div>
+           {conversations?.map((conv: any) => {
+             const isActive = location.pathname === `/chat/${conv.id}`
+             return (
+               <Link 
+                  key={conv.id} 
+                  to={`/chat/${conv.id}`} 
+                  onClick={() => setSidebarOpen(false)}
+                  className={`block p-3 rounded-xl text-sm truncate transition-all duration-200 ${isActive ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground'}`}
+               >
+                 <div className="flex items-center gap-3">
+                   <MessageSquare size={16} className={isActive ? 'text-primary' : 'text-muted-foreground'} />
+                   <span className="truncate">{conv.title || 'New Conversation'}</span>
+                 </div>
+               </Link>
+             )
+           })}
         </div>
-        <div className="p-4 border-t space-y-2">
-          <Link to="/profile" className="flex items-center gap-2 p-2 hover:bg-accent rounded-md cursor-pointer text-sm">
-            <UserIcon size={18}/>
-            {user?.firstName} {user?.lastName}
+        
+        <div className="p-4 border-t border-border/50 bg-card/50 space-y-1">
+          <Link to="/profile" className="flex items-center gap-3 p-3 hover:bg-accent rounded-xl cursor-pointer text-sm font-medium transition-colors">
+            <div className="bg-muted p-1.5 rounded-full"><UserIcon size={16} /></div>
+            <span className="truncate flex-1">{user?.firstName} {user?.lastName}</span>
           </Link>
-          <Link to="/settings" className="flex items-center gap-2 p-2 hover:bg-accent rounded-md cursor-pointer text-sm">
+          <Link to="/settings" className="flex items-center gap-3 p-3 hover:bg-accent rounded-xl cursor-pointer text-sm text-muted-foreground hover:text-foreground transition-colors">
             <Settings size={18}/>
             Settings
           </Link>
-          <div onClick={handleLogout} className="flex items-center gap-2 p-2 hover:bg-destructive hover:text-destructive-foreground rounded-md cursor-pointer text-sm text-muted-foreground transition">
+          <div onClick={handleLogout} className="flex items-center gap-3 p-3 hover:bg-destructive/10 hover:text-destructive rounded-xl cursor-pointer text-sm text-muted-foreground transition-colors">
             <LogOut size={18}/>
             Logout
           </div>
         </div>
       </aside>
-      <main className="flex-1 relative bg-background">
-        <Outlet />
+
+      {/* Main Content */}
+      <main className="flex-1 relative bg-background flex flex-col min-w-0">
+        <header className="md:hidden h-14 border-b border-border/50 flex items-center px-4 bg-background/80 backdrop-blur-md sticky top-0 z-30">
+          <button onClick={() => setSidebarOpen(true)} className="text-muted-foreground hover:text-foreground">
+            <PanelLeft size={24} />
+          </button>
+          <span className="ml-4 font-bold tracking-tight">Spark AI</span>
+        </header>
+        <div className="flex-1 relative overflow-hidden">
+          <Outlet />
+        </div>
       </main>
     </div>
   )

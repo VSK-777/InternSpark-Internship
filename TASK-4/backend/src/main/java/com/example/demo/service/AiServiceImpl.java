@@ -40,7 +40,9 @@ public class AiServiceImpl implements AiService {
         try {
             return chatClient.prompt(prompt).call().content();
         } catch (Exception e) {
-            return "Sorry, I am currently experiencing issues connecting to the AI service. Please try again later.";
+            System.err.println("Error generating AI response: " + e.getMessage());
+            e.printStackTrace();
+            return "Sorry, I am currently experiencing issues connecting to the AI service. Please try again later. Error: " + e.getMessage();
         }
     }
 }
