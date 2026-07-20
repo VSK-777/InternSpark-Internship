@@ -44,7 +44,7 @@ I am an aspiring software developer with a strong passion for building scalable 
 | :---: | :--- | :--- | :--- | :---: | :---: | :---: |
 | **Task 1** | [Employee CRUD Application](./TASK-1) | A full-stack employee directory management system with a modern Glassmorphism UI. | React, Spring Boot, MySQL | ✅ Completed | [View](./TASK-1) | [Live Demo](https://intern-spark-internship.vercel.app/) |
 | **Task 2** | [Database Migration using Flyway](./TASK-2) | Automated database schema versioning and data seeding using Flyway. | Java, Spring Boot, Flyway, MySQL | ✅ Completed | [View](./TASK-2) | N/A (Backend Tool) |
-| **Task 4** | [Dockerize & Deploy (Spark AI)](./TASK-4) | Enterprise AI Chatbot Platform with JWT auth and LLM integration. | React, Spring Boot, Docker, PostgreSQL, Groq API | ✅ Completed | [View](./TASK-4) | [Live Demo](https://intern-spark-internship-task-4.vercel.app) |
+| **Task 4** | [Dockerize & Deploy (Spark AI)](./TASK-4) | Containerized full-stack architecture using Docker and deployed to production via Render and Vercel. | React, Spring Boot, Docker, PostgreSQL, Groq API | ✅ Completed | [View](./TASK-4) | [Live Demo](https://intern-spark-internship-task-4.vercel.app) |
 
 ## 📂 Repository Structure
 
