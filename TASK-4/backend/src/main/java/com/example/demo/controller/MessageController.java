@@ -31,6 +31,32 @@ public class MessageController {
         return ResponseEntity.ok(messageService.sendMessage(userId, request));
     }
 
+    @GetMapping("/test-ai-raw")
+    public ResponseEntity<String> testAiRaw() {
+        try {
+            String apiKey = System.getenv("GROQ_API_KEY");
+            if (apiKey == null || apiKey.isEmpty()) {
+                return ResponseEntity.status(500).body("GROQ_API_KEY is not set in environment!");
+            }
+            
+            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
+                .uri(java.net.URI.create("https://api.groq.com/openai/v1/chat/completions"))
+                .header("Authorization", "Bearer " + apiKey)
+                .header("Content-Type", "application/json")
+                .POST(java.net.http.HttpRequest.BodyPublishers.ofString(
+                    "{\"model\": \"llama-3.1-8b-instant\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}"
+                ))
+                .build();
+                
+            java.net.http.HttpResponse<String> res = java.net.http.HttpClient.newHttpClient()
+                .send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
+                
+            return ResponseEntity.status(res.statusCode()).body(res.body());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Exception: " + e.getMessage());
+        }
+    }
+
     private Long getUserId() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getId();
