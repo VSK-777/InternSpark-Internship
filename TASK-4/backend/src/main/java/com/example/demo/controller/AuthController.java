@@ -38,17 +38,38 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+        System.out.println("1. Request reaches controller. POST /api/auth/login");
+        System.out.println("2. Request DTO values: email=" + loginRequest.getEmail());
+        
+        try {
+            System.out.println("3. Invoking AuthenticationManager...");
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            
+            System.out.println("4. AuthenticationManager result: Success");
+            
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            System.out.println("5. User lookup result: Found user ID " + userDetails.getId());
+            
+            String jwt = jwtUtils.generateJwtToken(userDetails);
+            System.out.println("6. JWT generation successful.");
+            
+            System.out.println("7. Attempting to generate RefreshToken in DB...");
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+            System.out.println("8. RefreshToken generated successfully.");
 
-        String jwt = jwtUtils.generateJwtToken(userDetails);
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-
-        return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
-                userDetails.getEmail(), userDetails.getFirstName(), userDetails.getLastName()));
+            System.out.println("9. Returning HTTP 200 OK");
+            return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
+                    userDetails.getEmail(), userDetails.getFirstName(), userDetails.getLastName()));
+        } catch (Exception e) {
+            System.out.println("EXCEPTION IN LOGIN FLOW:");
+            System.out.println("- Exception type: " + e.getClass().getName());
+            System.out.println("- Message: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // rethrow to let GlobalExceptionHandler handle it
+        }
     }
 
     @PostMapping("/register")
