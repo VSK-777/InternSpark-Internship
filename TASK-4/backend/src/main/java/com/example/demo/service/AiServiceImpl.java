@@ -51,7 +51,7 @@ public class AiServiceImpl implements AiService {
             return response;
         } catch (Exception e) {
             log.error("Error generating AI response: {}", e.getMessage(), e);
-            return "Sorry, I am currently experiencing issues connecting to the AI service. Please try again later. Error: " + e.getMessage();
+            throw new RuntimeException("AI service unavailable: " + e.getMessage(), e);
         }
     }
 }

@@ -56,7 +56,7 @@ public class AuthController {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             Map<String, String> response = new HashMap<>();
             response.put("message", "Error: Email is already in use!");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.status(org.springframework.http.HttpStatus.CONFLICT).body(response);
         }
 
         User user = User.builder()

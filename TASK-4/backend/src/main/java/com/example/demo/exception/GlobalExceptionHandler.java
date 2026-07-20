@@ -39,18 +39,32 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(org.springframework.security.authentication.BadCredentialsException.class)
+    public ResponseEntity<?> handleBadCredentialsException(Exception ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", "Error: Invalid email or password");
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<?> handleAccessDeniedException(Exception ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", "Error: Access denied");
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         Map<String, String> body = new HashMap<>();
-        body.put("message", "Database error: A conflict occurred, such as a duplicate entry.");
+        body.put("message", "Error: A conflict occurred, such as a duplicate entry.");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGlobalException(Exception ex) {
         Map<String, String> error = new HashMap<>();
-        error.put("message", "An unexpected internal server error occurred: " + ex.getMessage());
-        error.put("details", ex.toString());
+        error.put("message", "An unexpected internal server error occurred.");
+        // Do not expose stack trace or internal exception messages
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
