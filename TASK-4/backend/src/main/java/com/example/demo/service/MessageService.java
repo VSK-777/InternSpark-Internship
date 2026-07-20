@@ -70,7 +70,7 @@ public class MessageService {
         // Save AI Message
         Message aiMessage = Message.builder()
                 .conversation(conversation)
-                .role("AI")
+                .role("ASSISTANT")
                 .content(aiContent)
                 .build();
         aiMessage = messageRepository.save(aiMessage);
